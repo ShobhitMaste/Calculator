@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html{
+            background-color: rgb(40, 40, 40);
+        }
+        .flex-center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height:97vh;
+        }
+        .container{
+            background-color: rgb(218, 215, 215);
+        }
+        h1{
+            text-align: center;
+            font-weight: 300;
+            margin:0;
+        }
+        .calculator{
+            margin:15px;
+            width:300px;
+            height:350px;
+            background-color: white;
+            padding:20px;
+            border-radius: 5px;
+            padding-bottom:30px;
+        }
+        .display{
+            border:2px solid rgb(218, 215, 215);
+            border-radius:5px;
+            height: 50px;
+            background-color: rgb(244, 245, 245);
+            text-align: right;
+            display:block;
+        }
+        .calc-body{
+            margin-top:10px;
+            height:75%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+            gap:8px;
+        }
+        .zero{
+            grid-area:5/1/6/3;
+        }
+        .equals{
+            grid-area:5/3/6/5;
+        }
+        button{
+            border:1px solid rgb(218, 215, 215);
+            border-radius: 5px;
+        }
+        button:hover{
+            background-color: rgb(216, 215, 213);
+        }
+        .C, .divide, .mult, .subtract, .add{
+            background-color: orange;
+            border:1px solid rgb(246, 185, 73);
+            color:white;
+        }
+        .C:hover, .divide:hover, .mult:hover, .subtract:hover, .add:hover {
+            background-color: rgb(232, 152, 3);
+        }
+        .equals{
+            background-color: rgb(80, 219, 10);
+            border:1px solid rgb(70, 188, 10);
+            color:white;
+        }
+        .equals:hover{
+            background-color: rgb(62, 172, 7);
+        }
+        .recent-expression{
+            position:relative;
+            margin: 0px;
+            padding:0px;
+            padding-right: 5px;
+        }
+        .main-expression{
+            font-size:30px;
+            margin: 0px;
+            padding:0px;
+        }
+    </style>
+</head>
+<body>
+    <center><h1 style="color:white;">Shobhit Singh 23BAI1229 Calculator</h1></center>
+    <div class="flex-center">
+        <div class="container outline">
+            <div class="calculator">
+                <h1>Calculator</h1>
+                <div class="display">
+                    <p class="recent-expression"></p>
+                    <p class="main-expression"></p>
+                </div>
+                <div class="calc-body">
+                    <button class="button AC">AC</button>
+                    <button class="button C">C</button>
+                    <button class="button divide">∕</button>
+                    <button class="button mult">×</button>
+                    <button class="button seven">7</button>
+                    <button class="button eight">8</button>
+                    <button class="button nine">9</button>
+                    <button class="button subtract">-</button>
+                    <button class="button four">4</button>
+                    <button class="button five">5</button>
+                    <button class="button six">6</button>
+                    <button class="button add">+</button>
+                    <button class="button one">1</button>
+                    <button class="button two">2</button>
+                    <button class="button three">3</button>
+                    <button class="button dot">.</button>
+                    <button class="button zero">0</button>
+                    <button class="button equals">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var allButtons = document.querySelectorAll("button");
+        var mainDisplay = document.querySelector(".main-expression");
+        var recentDisplay = document.querySelector(".recent-expression");
+        var buttonCount = allButtons.length;
+        var num = "", storedNum = "";
+        var operation = "";
+        var equalPressed = {
+            value: false
+        }
+        var lastClickedOperator = null;
+        for(var i = 0; i < buttonCount; i++){
+            allButtons[i].addEventListener("click", function (){
+                var buttonClicked = this.textContent;
+                switch(buttonClicked){
+                    case "AC":
+                        clearAll();
+                        break;
+                    case "C":
+                        clear();
+                        break;
+                    case "∕":
+                    case "×":
+                    case "-":
+                    case "+":
+                        handleOperators(buttonClicked, equalPressed);
+                        break;
+                    case "=":
+                        equate();
+                        equalPressed.value = true;
+                        lastClickedOperator = null;
+                        break;
+                    default:
+                        addnum(buttonClicked, equalPressed);
+                        lastClickedOperator = null;
+                }
+                
+                console.log("pnum - " + num + "| stored - " + storedNum + "| op - " + operation);
+            });
+        }
+
+        function handleOperators(operator, equalPressed){
+            if(equalPressed.value){
+                equalPressed.value = false;
+                clearAll();
+            }
+            if(lastClickedOperator){
+                operation = operator;
+                recentDisplay.textContent = storedNum + " " + operation + " ";
+            } else {
+                equate();
+                operation = operator;
+                assignValues(operation);
+            }
+            lastClickedOperator = operator;
+        }
+
+        function assignValues(operation){
+            storedNum = num;
+            num = "";
+            recentDisplay.textContent = storedNum + " " + operation + " ";
+        }
+
+        function addnum(buttonClicked, equalPressed){
+            if(equalPressed.value){
+                equalPressed.value = false;
+                clearAll();
+            }
+            num += buttonClicked;
+            mainDisplay.textContent = num;
+            console.log("pnum - " + num + "| stored - " + storedNum + "| op - " + operation);
+        }
+
+        function clearAll(){
+            num = "";
+            storedNum = "";
+            operation = "";
+            mainDisplay.textContent = num;
+            recentDisplay.textContent = storedNum;
+            lastClickedOperator = null;
+        }
+
+        function clear(){
+            if(num.length == 0){
+                mainDisplay.textContent = num;
+                return;
+            }
+            num = num.slice(0,-1);
+            mainDisplay.textContent = num;
+        }
+
+        function equate(){
+            console.log("pnum - " + num + "| stored - " + storedNum + "| op - " + operation);
+            if(num.length == 0 || storedNum.length == 0 || operation.length == 0)
+                return;
+
+            switch(operation){
+                case '+':
+                    num = parseInt(num) + parseInt(storedNum);
+                    break;
+                case '-':
+                    num = parseInt(storedNum) - parseInt(num);
+                    break;
+                case '∕':
+                    num = parseInt(storedNum) / parseInt(num);
+                    break;
+                case '×':
+                    num = parseInt(num) * parseInt(storedNum);
+                    break;
+            }
+            storedNum = num;
+            mainDisplay.textContent = num;
+            recentDisplay.textContent = "";
+            lastClickedOperator = null;
+        }
+        
+    </script>
+
+</body>
+</html>
