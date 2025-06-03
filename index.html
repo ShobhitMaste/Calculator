@@ -133,6 +133,9 @@
     </div>
 
     <script>
+        document.querySelector("body").addEventListener("wheel", (e) => {
+            e.preventDefault();
+        }, {passive: false});
         var allButtons = document.querySelectorAll("button");
         var mainDisplay = document.querySelector(".main-expression");
         var recentDisplay = document.querySelector(".recent-expression");
