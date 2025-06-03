@@ -15,7 +15,8 @@
             height:97vh;
         }
         .container{
-            background-color: rgb(218, 215, 215);
+            height: 100%;
+            width: 100%;
         }
         h1{
             text-align: center;
@@ -23,13 +24,15 @@
             margin:0;
         }
         .calculator{
+            font-size: 20px;
             margin:15px;
-            width:300px;
-            height:350px;
+            width:80%;
+            height:81%;
             background-color: white;
             padding:20px;
             border-radius: 5px;
             padding-bottom:30px;
+            outline: 10px solid black;
         }
         .display{
             border:2px solid rgb(218, 215, 215);
@@ -56,6 +59,7 @@
         button{
             border:1px solid rgb(218, 215, 215);
             border-radius: 5px;
+            font-size: 40px;;
         }
         button:hover{
             background-color: rgb(216, 215, 213);
@@ -87,37 +91,42 @@
             margin: 0px;
             padding:0px;
         }
+        .size{
+            height: 100%;;
+            width: 100vh;
+        }
     </style>
 </head>
 <body>
-    <center><h1 style="color:white;">Shobhit Singh 23BAI1229 Calculator</h1></center>
     <div class="flex-center">
-        <div class="container outline">
-            <div class="calculator">
-                <h1>Calculator</h1>
-                <div class="display">
-                    <p class="recent-expression"></p>
-                    <p class="main-expression"></p>
-                </div>
-                <div class="calc-body">
-                    <button class="button AC">AC</button>
-                    <button class="button C">C</button>
-                    <button class="button divide">∕</button>
-                    <button class="button mult">×</button>
-                    <button class="button seven">7</button>
-                    <button class="button eight">8</button>
-                    <button class="button nine">9</button>
-                    <button class="button subtract">-</button>
-                    <button class="button four">4</button>
-                    <button class="button five">5</button>
-                    <button class="button six">6</button>
-                    <button class="button add">+</button>
-                    <button class="button one">1</button>
-                    <button class="button two">2</button>
-                    <button class="button three">3</button>
-                    <button class="button dot">.</button>
-                    <button class="button zero">0</button>
-                    <button class="button equals">=</button>
+        <div class="size">
+            <div class="container flex-center">
+                <div class="calculator">
+                    <h1>Calculator</h1>
+                    <div class="display">
+                        <p class="recent-expression"></p>
+                        <p class="main-expression"></p>
+                    </div>
+                    <div class="calc-body">
+                        <button class="button AC">AC</button>
+                        <button class="button C">C</button>
+                        <button class="button divide">∕</button>
+                        <button class="button mult">×</button>
+                        <button class="button seven">7</button>
+                        <button class="button eight">8</button>
+                        <button class="button nine">9</button>
+                        <button class="button subtract">-</button>
+                        <button class="button four">4</button>
+                        <button class="button five">5</button>
+                        <button class="button six">6</button>
+                        <button class="button add">+</button>
+                        <button class="button one">1</button>
+                        <button class="button two">2</button>
+                        <button class="button three">3</button>
+                        <button class="button dot">.</button>
+                        <button class="button zero">0</button>
+                        <button class="button equals">=</button>
+                    </div>
                 </div>
             </div>
         </div>
